@@ -1,8 +1,33 @@
 var Dao = require(__base+"lib/Dao")();
 var dao = new Dao();
 
+var CATEGORIES = {
+		1: 'INFO',
+		999: 'ERROR'
+};
+
+var MESSAGES = {
+		1: 'Neni zadano ID rele k zapisu',
+		2: 'Neni zadano ID rele ke cteni',
+		3: 'System startuje...',
+		4: 'System pripraven.',
+		5: 'Reading relay values...',
+		6: 'Reading temperature values.',
+		7: 'Main...',
+		8: 'Waiting 10 s',
+		9: 'Sleep ended',
+		10: 'ERROR',
+		11: 'ERROR',
+		12: 'ERROR',
+		13: 'ERROR',
+		14: 'ERROR',
+		15: 'ERROR',
+};
+
 exports.log = function(req, res){
-	dao.insertLog(req.params.category, req.params.txt, function(){
+	var category = CATEGORIES[req.params.category];
+	var message = MESSAGES[req.params.txt];
+	dao.insertLog(category, message, function(){
 		res.json({ message: 'OK' });
 	});	
 };
